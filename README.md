@@ -22,7 +22,6 @@ Este projeto faz parte do MVP (Minimum Viable Product) de controle de despesas.
 ## Como rodar localmente
 
 1. **Clone este repositório**
-   ```bash
    git clone https://github.com/dinhood/mvp-frontend.git
    cd mvp-frontend
 Abra o arquivo index.html no navegador
@@ -39,4 +38,4 @@ Observações
 O frontend depende da API do repositório mvp-api
 .
 
-Sem o backend rodando, as funcionalidades (como login e despesas) não funcionarão corretamen
+Sem o backend rodando, as funcionalidades (como login e despesas) não funcionarão corretamente
