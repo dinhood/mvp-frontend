@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Controle de Despesas — MVP</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+        /* --- Estilo geral minimalista de "folha com linhas" --- */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            margin: 0;
+        }
+        h1, h2, h3 {
+            color: #333;
+            text-align: center;
+        }
+        .card {
+            background: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            border: 1px solid #ddd;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 6px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        button {
+            background: #333;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #555;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-image: linear-gradient(to bottom, #fdfdfd 95%, #dcdcdc 5%);
+            background-size: 100% 40px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+            background-color: rgba(255,255,255,0.8);
+        }
+        .success { color: green; }
+        .error { color: red; }
+        .filtro { margin-top: 20px; }
+        .right { float: right; }
+        .total-mes { font-weight: bold; margin-top: 8px; display:block; }
+        .hidden { display:none; }
+        .actions button { margin-right:6px; }
+
+        /* --- Layout em duas colunas --- */
+        #app-container-inner {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        #despesas-column {
+            flex: 2;
+            min-width: 250px;
+        }
+        #opcoes-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        #opcoes-column .card {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div style="width:100%;max-width:900px;">
+        <h1>Controle de Despesas — MVP</h1>
+
+        <p id="mensagem"></p>
+
+        <!-- LOGIN -->
+        <div id="login-container" class="card">
+            <h2>Login</h2>
+            <input id="login-identificador" placeholder="E-mail ou CPF"><br>
+            <input id="login-senha" type="password" placeholder="Senha"><br>
+            <button id="btn-login">Entrar</button>
+            <p>Não tem conta? <a href="#" id="link-cadastro">Cadastre-se</a></p>
+        </div>
+
+        <!-- CADASTRO -->
+        <div id="cadastro-container" class="card hidden">
+            <h2>Cadastro</h2>
+            <input id="cadastro-nome" placeholder="Nome"><br>
+            <input id="cadastro-email" placeholder="E-mail"><br>
+            <input id="cadastro-cpf" placeholder="CPF"><br>
+            <input id="cadastro-senha" type="password" placeholder="Senha"><br>
+            <button id="btn-cadastrar">Cadastrar</button>
+            <p>Já tem conta? <a href="#" id="link-login">Faça login</a></p>
+        </div>
+
+        <!-- APLICATIVO (visível após login) -->
+        <div id="app-container" class="hidden">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+                <h2>Minhas Despesas</h2>
+                <div>
+                    <span id="usuario-nome"></span>
+                    <button id="btn-logout">Sair</button>
+                </div>
+            </div>
+
+            <!-- Layout em colunas -->
+            <div id="app-container-inner">
+                <!-- Coluna de despesas -->
+                <div id="despesas-column">
+                    <!-- Container onde as tabelas por mês serão inseridas -->
+                    <div id="containerTabelas"></div>
+                </div>
+
+                <!-- Coluna de opções -->
+                <div id="opcoes-column">
+                    <!-- Form adicionar -->
+                    <div class="card">
+                        <h3>Adicionar Despesa</h3>
+                        <input id="descricao" placeholder="Descrição">
+                        <input id="valor" type="number" step="0.01" placeholder="Valor">
+                        <input id="data" type="date">
+                        <button id="btn-adicionar">Adicionar</button>
+                    </div>
+
+                    <!-- Filtro por mês -->
+                    <div class="card filtro">
+                        <h3>Filtrar por mês</h3>
+                        <input id="anoFiltro" type="number" placeholder="Ano (YYYY)" style="width:120px">
+                        <input id="mesFiltro" type="number" placeholder="Mês (1-12)" style="width:120px">
+                        <button id="btn-filtrar">Filtrar</button>
+                        <button id="btn-mostrar-todas">Mostrar todas</button>
+                    </div>
+
+                    <!-- Form para metas -->
+                    <div class="card">
+                        <h3>Definir/Atualizar Meta Mensal</h3>
+                        <input id="meta-ano" type="number" placeholder="Ano (YYYY)" style="width:120px">
+                        <input id="meta-mes" type="number" placeholder="Mês (1-12)" style="width:120px">
+                        <input id="meta-valor" type="number" step="0.01" placeholder="Valor da Meta">
+                        <button id="btn-salvar-meta">Salvar Meta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
